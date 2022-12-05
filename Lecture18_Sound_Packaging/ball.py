@@ -13,7 +13,9 @@ class Ball:
         self.x, self.y = random.randint(0, get_canvas_width()-1), random.randint(0, get_canvas_height()-1)
 
         # fill here
-
+        if Ball.eat_sound is None:
+            Ball.eat_sound = load_wav('pickup.wav')
+            Ball.eat_sound.set_volume(20)
 
     def __getstate__(self):
         state = {'x': self.x, 'y': self.y}
@@ -34,6 +36,8 @@ class Ball:
     def update(self):
         pass
 
-    def handle_collision(self, other, grou):
+    def handle_collision(self, other, group):
         # fill here
+        Ball.eat_sound.play()
+
         game_world.remove_object(self)
